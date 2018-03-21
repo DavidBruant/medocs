@@ -3,13 +3,13 @@ import {promisify} from 'util'
 import {join, extname} from 'path'
 import {createGunzip} from 'zlib'
 
-
 import {Parse} from 'unzip-stream'
 import csv from 'csv-parser'
 
 import {OPEN_MEDIC_2016, OPEN_MEDIC_2015, OPEN_MEDIC_2014} from '../src/files.js';
 
 const file = `./data/${OPEN_MEDIC_2016}`;
+
 
 // http://2ality.com/2015/08/es6-map-json.html
 function strMapToObj(strMap) {
@@ -77,7 +77,7 @@ const prescriptionsBySexeP = new Promise((resolve, reject) => {
             .pipe(csv({separator: ';'}))
         )
     }
-    
+
 })
 
 
