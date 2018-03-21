@@ -4,19 +4,33 @@ import {join} from 'path'
 
 import {OPEN_MEDIC_2016, OPEN_MEDIC_2015, OPEN_MEDIC_2014} from '../src/files.js';
 import boitesParSexe from './dataQueries/boitesParSexe';
+import medicsParAnnee from './dataQueries/medicsParAnnee';
+
+function makeDataPath(datafile){
+    return join(__dirname, '..', 'data', datafile);
+}
 
 const openMedicByYear = Object.freeze({
-    "2014": `./data/${OPEN_MEDIC_2014}`,
-    "2015": `./data/${OPEN_MEDIC_2015}`,
-    "2016": `./data/${OPEN_MEDIC_2016}`
+    "2014": makeDataPath(OPEN_MEDIC_2014),
+    "2015": makeDataPath(OPEN_MEDIC_2015),
+    "2016": makeDataPath(OPEN_MEDIC_2016)
 });
 
-
-boitesParSexe(openMedicByYear)
-.then(bPSs => {
+Promise.all([
+    boitesParSexe(openMedicByYear),
+    medicsParAnnee(openMedicByYear)
+])
+.then(([bPSs, mPAs]) => {
     return promisify(writeFile)(
         join(__dirname, '..', 'build', 'data.json'), 
-        JSON.stringify({boitesParSexe: bPSs}, null, 3)
+        JSON.stringify(
+            {
+                boitesParSexe: bPSs,
+                medicsParAnnee: mPAs
+            },
+            null, 
+            2
+        )
     )
 })
 .catch(err => console.error('boites par sexe error', err))
