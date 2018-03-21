@@ -37,5 +37,4 @@ Object.keys(fileToURL).map(filename => {
       
         console.error(`Error with file ${filename}`, err);
     })
-
 })
