@@ -2,6 +2,7 @@ language: node_js
 node_js: 'node'
 
 install:
+  - npm i -g npm@5.7.1 # this should be deleted once 5.7.X is out of "pre-release"
   - npm ci
   - npm run download
 
@@ -19,3 +20,6 @@ deploy:
   script: bash ./tools/deploy.sh
   on:
     branch: master
+
+git:
+  depth: 5
