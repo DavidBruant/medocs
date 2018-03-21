@@ -1,12 +1,15 @@
 import {createReadStream, writeFile} from 'fs'
 import {promisify} from 'util'
-import {join} from 'path'
+import {join, extname} from 'path'
+import {createGunzip} from 'zlib'
 
 import {Parse} from 'unzip-stream'
 import csv from 'csv-parser'
 
+import {OPEN_MEDIC_2016, OPEN_MEDIC_2015, OPEN_MEDIC_2014} from '../src/files.js';
 
-const file = './data/OPEN_MEDIC_2016.zip';
+const file = `./data/${OPEN_MEDIC_2016}`;
+
 
 // http://2ality.com/2015/08/es6-map-json.html
 function strMapToObj(strMap) {
@@ -31,30 +34,50 @@ const SEXE_LABEL = {
 const prescriptionsBySexeP = new Promise((resolve, reject) => {
     const prescriptionsBySexe = new Map()
 
-    createReadStream(file)
+    const extension = extname(file);
+
+    const fileStream = createReadStream(file)
+
+    function processStream(str){
+        str
+        .on('data', function (data) {
+            const sexe = data.sexe;
+
+            if(!prescriptionsBySexe.has(sexe)){
+                prescriptionsBySexe.set(sexe, 0)
+            }
+
+            prescriptionsBySexe.set(
+                sexe, 
+                // TODO on devrait compter les boîtes pas les lignes
+                prescriptionsBySexe.get(sexe)+1
+            )
+        })
+        .on('end', () => {
+            resolve(prescriptionsBySexe)
+        })
+        .on('error', reject)
+    }
+
+    if(extension === '.zip'){
+        fileStream
         .pipe(Parse())
         .on('entry', entry => {
             console.log('entry', entry.path, entry.type)
 
-            entry
-                .pipe(csv({separator: ';'}))
-                .on('data', function (data) {
-                    const sexe = data.sexe;
-
-                    if(!prescriptionsBySexe.has(sexe)){
-                        prescriptionsBySexe.set(sexe, 0)
-                    }
-
-                    prescriptionsBySexe.set(
-                        sexe, 
-                        prescriptionsBySexe.get(sexe)+1
-                    )
-                })
-                .on('end', () => {
-                    resolve(prescriptionsBySexe)
-                })
-                .on('error', reject)
+            processStream(
+                entry.pipe(csv({separator: ';'}))
+            )
         })
+    }
+    else{
+        processStream(
+            fileStream
+            .pipe(createGunzip())
+            .pipe(csv({separator: ';'}))
+        )
+    }
+
 })
 
 
