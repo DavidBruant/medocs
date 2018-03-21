@@ -1,113 +1,36 @@
-import {createReadStream, writeFile} from 'fs'
+import {writeFile} from 'fs'
 import {promisify} from 'util'
-import {join, extname} from 'path'
-import {createGunzip} from 'zlib'
-
-import {Parse} from 'unzip-stream'
-import csv from 'csv-parser'
+import {join} from 'path'
 
 import {OPEN_MEDIC_2016, OPEN_MEDIC_2015, OPEN_MEDIC_2014} from '../src/files.js';
+import boitesParSexe from './dataQueries/boitesParSexe';
+import medicsParAnnee from './dataQueries/medicsParAnnee';
 
-const openMedicByYear = {
-    "2014": `./data/${OPEN_MEDIC_2014}`,
-    "2015": `./data/${OPEN_MEDIC_2015}`,
-    "2016": `./data/${OPEN_MEDIC_2016}`
-};
-
-function strMapToObj(strMap) {
-    // Credit : http://2ality.com/2015/08/es6-map-json.html
-
-    let obj = Object.create(null);
-    for (let [k,v] of strMap) {
-        // We don’t escape the key '__proto__'
-        // which can cause problems on older engines
-        obj[k] = v;
-    }
-    return obj;
+function makeDataPath(datafile){
+    return join(__dirname, '..', 'data', datafile);
 }
 
-const SEXE_LABEL = {
-    "1": "MASCULIN",
-    "2": "FEMININ",
-    "9": "VALEUR INCONNUE"
-}
+const openMedicByYear = Object.freeze({
+    "2014": makeDataPath(OPEN_MEDIC_2014),
+    "2015": makeDataPath(OPEN_MEDIC_2015),
+    "2016": makeDataPath(OPEN_MEDIC_2016)
+});
 
-
-function computeBoiteBySexe(file){
-    console.log('computeBoiteBySexe', file)
-
-    return new Promise((resolve, reject) => {
-        const boitesBySexe = new Map()
-    
-        const extension = extname(file);
-    
-        const fileStream = createReadStream(file)
-    
-        function processStream(str){
-            str
-            .on('data', function (data) {
-                const sexe = data.sexe;
-                const boites = Number(data['BOITES']);
-    
-                if(!boitesBySexe.has(sexe)){
-                    boitesBySexe.set(sexe, 0)
-                }
-    
-                boitesBySexe.set(
-                    sexe, 
-                    boitesBySexe.get(sexe) + boites
-                )
-            })
-            .on('end', () => {
-                resolve(boitesBySexe)
-            })
-            .on('error', reject)
-        }
-    
-        if(extension === '.zip'){
-            fileStream
-            .pipe(Parse())
-            .on('entry', entry => {
-                //console.log('entry', entry.path, entry.type)
-    
-                processStream(
-                    entry.pipe(csv({separator: ';'}))
-                )
-            })
-        }
-        else{
-            processStream(
-                fileStream
-                .pipe(createGunzip())
-                .pipe(csv({separator: ';'}))
-            )
-        }
-    
-    })
-}
-
-
-Promise.all(Object.keys(openMedicByYear).map(year => {
-    return computeBoiteBySexe(openMedicByYear[year])
-    .then(strMapToObj)
-    .then(bPS => {
-        const boitesParSexe = {};
-
-        Object.keys(bPS).forEach(k => {
-            const label = SEXE_LABEL[k];
-            boitesParSexe[label] = bPS[k];
-        })
-
-        return {
-            year: Number(year),
-            boitesParSexe
-        }
-    })
-}))
-.then(bPSs => {
+Promise.all([
+    boitesParSexe(openMedicByYear),
+    medicsParAnnee(openMedicByYear)
+])
+.then(([bPSs, mPAs]) => {
     return promisify(writeFile)(
         join(__dirname, '..', 'build', 'data.json'), 
-        JSON.stringify({boitesParSexe: bPSs}, null, 3)
+        JSON.stringify(
+            {
+                boitesParSexe: bPSs,
+                medicsParAnnee: mPAs
+            },
+            null, 
+            2
+        )
     )
 })
 .catch(err => console.error('boites par sexe error', err))

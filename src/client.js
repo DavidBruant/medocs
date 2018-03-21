@@ -2,7 +2,7 @@
 
 d3.json('./build/data.json')
 .then(data => {
-    const {boitesParSexe} = data;
+    const {boitesParSexe, medicsParAnnee} = data;
 
     const headers = new Set();
     
@@ -12,7 +12,7 @@ d3.json('./build/data.json')
 
     const orderedHeaders = [...headers];
 
-    const el = Bouture.section([
+    const boiteParAnnee = Bouture.section([
         Bouture.h1('Nombre de boîtes prescrites (OpenMedic)'),
         Bouture.table([
             Bouture.thead.tr([
@@ -30,5 +30,28 @@ d3.json('./build/data.json')
         ])
     ]).getElement()
 
-    document.querySelector('body main').appendChild(el)
+
+    const nbMedicamentsParAnnee = Bouture.section([
+        Bouture.h1('Nombre de médicaments prescrits par année (OpenMedic)'),
+        Bouture.table([
+            Bouture.thead.tr([
+                Bouture.th('Année'), 
+                Bouture.th('Nombre médicaments')
+            ]),
+            Bouture.tbody(
+                medicsParAnnee.map(mpa => {
+                    return Bouture.tr([
+                        Bouture.td(mpa.year),
+                        Bouture.td(mpa.medicaments.length)
+                    ])
+                })
+            )
+        ])
+    ]).getElement()
+
+
+    document.querySelector('body main').append(
+        boiteParAnnee,
+        nbMedicamentsParAnnee
+    )
 })

@@ -14,6 +14,7 @@ typings/
 
 data/*
 !data/readme.md
+!data/CIP13.csv
 
 build/*
 !build/readme.md
