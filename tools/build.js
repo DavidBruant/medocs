@@ -10,9 +10,9 @@ import {OPEN_MEDIC_2016, OPEN_MEDIC_2015, OPEN_MEDIC_2014} from '../src/files.js
 
 const file = `./data/${OPEN_MEDIC_2016}`;
 
-
-// http://2ality.com/2015/08/es6-map-json.html
 function strMapToObj(strMap) {
+    // Credit : http://2ality.com/2015/08/es6-map-json.html
+
     let obj = Object.create(null);
     for (let [k,v] of strMap) {
         // We don’t escape the key '__proto__'
@@ -31,8 +31,8 @@ const SEXE_LABEL = {
 
 
 // Q1
-const prescriptionsBySexeP = new Promise((resolve, reject) => {
-    const prescriptionsBySexe = new Map()
+const boitesBySexeP = new Promise((resolve, reject) => {
+    const boitesBySexe = new Map()
 
     const extension = extname(file);
 
@@ -42,19 +42,19 @@ const prescriptionsBySexeP = new Promise((resolve, reject) => {
         str
         .on('data', function (data) {
             const sexe = data.sexe;
+            const boites = Number(data['BOITES']);
 
-            if(!prescriptionsBySexe.has(sexe)){
-                prescriptionsBySexe.set(sexe, 0)
+            if(!boitesBySexe.has(sexe)){
+                boitesBySexe.set(sexe, 0)
             }
 
-            prescriptionsBySexe.set(
+            boitesBySexe.set(
                 sexe, 
-                // TODO on devrait compter les boîtes pas les lignes
-                prescriptionsBySexe.get(sexe)+1
+                boitesBySexe.get(sexe) + boites
             )
         })
         .on('end', () => {
-            resolve(prescriptionsBySexe)
+            resolve(boitesBySexe)
         })
         .on('error', reject)
     }
@@ -81,14 +81,14 @@ const prescriptionsBySexeP = new Promise((resolve, reject) => {
 })
 
 
-prescriptionsBySexeP
+boitesBySexeP
 .then(strMapToObj)
-.then(obj => {
+.then(boitesBySexe => {
     const o = {};
 
-    Object.keys(obj).forEach(k => {
+    Object.keys(boitesBySexe).forEach(k => {
         const label = SEXE_LABEL[k];
-        o[label] = obj[k];
+        o[label] = boitesBySexe[k];
     })
 
     return promisify(writeFile)(
