@@ -1,9 +1,4 @@
-import {createReadStream} from 'fs'
-import {join, extname} from 'path'
-import {createGunzip} from 'zlib'
-
-import {Parse} from 'unzip-stream'
-import csv from 'csv-parser'
+import makeCSVStreamFromArchive from './makeCSVStreamFromArchive'
 
 function strMapToObj(strMap) {
     // Credit : http://2ality.com/2015/08/es6-map-json.html
@@ -27,23 +22,20 @@ const SEXE_LABEL = {
 function computeBoiteBySexe(file){
     console.log('computeBoiteBySexe', file)
 
-    return new Promise((resolve, reject) => {
-        const boitesBySexe = new Map()
-    
-        const extension = extname(file);
-    
-        const fileStream = createReadStream(file)
-    
-        function processStream(str){
-            str
+    const boitesBySexe = new Map()
+
+    return makeCSVStreamFromArchive(file)
+    .then(csvStream => {
+        return new Promise((resolve, reject) => {
+            csvStream
             .on('data', function (data) {
                 const sexe = data.sexe;
                 const boites = Number(data['BOITES']);
-    
+
                 if(!boitesBySexe.has(sexe)){
                     boitesBySexe.set(sexe, 0)
                 }
-    
+
                 boitesBySexe.set(
                     sexe, 
                     boitesBySexe.get(sexe) + boites
@@ -53,27 +45,7 @@ function computeBoiteBySexe(file){
                 resolve(boitesBySexe)
             })
             .on('error', reject)
-        }
-    
-        if(extension === '.zip'){
-            fileStream
-            .pipe(Parse())
-            .on('entry', entry => {
-                //console.log('entry', entry.path, entry.type)
-    
-                processStream(
-                    entry.pipe(csv({separator: ';'}))
-                )
-            })
-        }
-        else{
-            processStream(
-                fileStream
-                .pipe(createGunzip())
-                .pipe(csv({separator: ';'}))
-            )
-        }
-    
+        })
     })
 }
 
