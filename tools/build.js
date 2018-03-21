@@ -8,7 +8,11 @@ import csv from 'csv-parser'
 
 import {OPEN_MEDIC_2016, OPEN_MEDIC_2015, OPEN_MEDIC_2014} from '../src/files.js';
 
-const file = `./data/${OPEN_MEDIC_2016}`;
+const openMedicByYear = {
+    "2014": `./data/${OPEN_MEDIC_2014}`,
+    "2015": `./data/${OPEN_MEDIC_2015}`,
+    "2016": `./data/${OPEN_MEDIC_2016}`
+};
 
 function strMapToObj(strMap) {
     // Credit : http://2ality.com/2015/08/es6-map-json.html
@@ -29,112 +33,81 @@ const SEXE_LABEL = {
 }
 
 
+function computeBoiteBySexe(file){
+    console.log('computeBoiteBySexe', file)
 
-// Q1
-const boitesBySexeP = new Promise((resolve, reject) => {
-    const boitesBySexe = new Map()
-
-    const extension = extname(file);
-
-    const fileStream = createReadStream(file)
-
-    function processStream(str){
-        str
-        .on('data', function (data) {
-            const sexe = data.sexe;
-            const boites = Number(data['BOITES']);
-
-            if(!boitesBySexe.has(sexe)){
-                boitesBySexe.set(sexe, 0)
-            }
-
-            boitesBySexe.set(
-                sexe, 
-                boitesBySexe.get(sexe) + boites
-            )
-        })
-        .on('end', () => {
-            resolve(boitesBySexe)
-        })
-        .on('error', reject)
-    }
-
-    if(extension === '.zip'){
-        fileStream
-        .pipe(Parse())
-        .on('entry', entry => {
-            console.log('entry', entry.path, entry.type)
-
-            processStream(
-                entry.pipe(csv({separator: ';'}))
-            )
-        })
-    }
-    else{
-        processStream(
+    return new Promise((resolve, reject) => {
+        const boitesBySexe = new Map()
+    
+        const extension = extname(file);
+    
+        const fileStream = createReadStream(file)
+    
+        function processStream(str){
+            str
+            .on('data', function (data) {
+                const sexe = data.sexe;
+                const boites = Number(data['BOITES']);
+    
+                if(!boitesBySexe.has(sexe)){
+                    boitesBySexe.set(sexe, 0)
+                }
+    
+                boitesBySexe.set(
+                    sexe, 
+                    boitesBySexe.get(sexe) + boites
+                )
+            })
+            .on('end', () => {
+                resolve(boitesBySexe)
+            })
+            .on('error', reject)
+        }
+    
+        if(extension === '.zip'){
             fileStream
-            .pipe(createGunzip())
-            .pipe(csv({separator: ';'}))
-        )
-    }
-
-})
-
-
-boitesBySexeP
-.then(strMapToObj)
-.then(boitesBySexe => {
-    const o = {};
-
-    Object.keys(boitesBySexe).forEach(k => {
-        const label = SEXE_LABEL[k];
-        o[label] = boitesBySexe[k];
+            .pipe(Parse())
+            .on('entry', entry => {
+                //console.log('entry', entry.path, entry.type)
+    
+                processStream(
+                    entry.pipe(csv({separator: ';'}))
+                )
+            })
+        }
+        else{
+            processStream(
+                fileStream
+                .pipe(createGunzip())
+                .pipe(csv({separator: ';'}))
+            )
+        }
+    
     })
+}
 
+
+Promise.all(Object.keys(openMedicByYear).map(year => {
+    return computeBoiteBySexe(openMedicByYear[year])
+    .then(strMapToObj)
+    .then(bPS => {
+        const boitesParSexe = {};
+
+        Object.keys(bPS).forEach(k => {
+            const label = SEXE_LABEL[k];
+            boitesParSexe[label] = bPS[k];
+        })
+
+        return {
+            year: Number(year),
+            boitesParSexe
+        }
+    })
+}))
+.then(bPSs => {
     return promisify(writeFile)(
         join(__dirname, '..', 'build', 'data.json'), 
-        JSON.stringify({boitesParSexe2016: o})
+        JSON.stringify({boitesParSexe: bPSs}, null, 3)
     )
 })
-.catch(err => console.error('Q1', err))
-
-
-
-// Q2
-/*const nbPrescByMedicP = new Promise((resolve, reject) => {
-    const nbPrescByMedic = new Map()
-
-    createReadStream(file)
-        .pipe(Parse())
-        .on('entry', entry => {
-            console.log('entry', entry.path, entry.type)
-
-            entry
-                .pipe(csv({separator: ';'}))
-                .on('data', function (data) {
-                    const cip13 = data.CIP13.trim();
-
-                    if(!nbPrescByMedic.has(cip13)){
-                        nbPrescByMedic.set(cip13, 0)
-                    }
-
-                    nbPrescByMedic.set(
-                        cip13, 
-                        nbPrescByMedic.get(cip13)+1
-                    )
-                })
-                .on('end', () => {
-                    resolve(nbPrescByMedic)
-                })
-                .on('error', reject)
-        })
-})
-
-
-nbPrescByMedicP.then(nbPrescByMedic => {
-    console.log('nb medic : ', nbPrescByMedic.size)
-
-    nbPrescByMedic.forEach((count, CIP13) => {
-        console.log(CIP13, count);
-    })
-})*/
+.catch(err => console.error('boites par sexe error', err))
