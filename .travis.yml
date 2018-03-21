@@ -1,14 +1,22 @@
+# Language and env
+
 language: node_js
 node_js: 'node'
+
+# What is built
+
+branches:
+  only:
+  - master
+
+# Travis Lifecycle
+
+before_install:
+  - npm i -g npm@5.7.1 # this should be deleted once 5.7.X is out of "pre-release"
 
 install:
   - npm ci
   - npm run download
-
-cache:
-  timeout: 86400
-  directories:
-  - data
 
 script:
   - npm run build
@@ -19,3 +27,14 @@ deploy:
   script: bash ./tools/deploy.sh
   on:
     branch: master
+
+
+# Other configs
+
+git:
+  depth: 5
+
+cache:
+  timeout: 86400
+  directories:
+  - data
