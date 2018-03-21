@@ -1,1 +1,28 @@
-{"boitesParSexe2016":{"MASCULIN":995603149,"FEMININ":1395786604,"VALEUR INCONNUE":466936}}
+{
+   "boitesParSexe": [
+      {
+         "year": 2014,
+         "boitesParSexe": {
+            "MASCULIN": 957687482,
+            "FEMININ": 1385287655,
+            "VALEUR INCONNUE": 3580329
+         }
+      },
+      {
+         "year": 2015,
+         "boitesParSexe": {
+            "MASCULIN": 986040562,
+            "FEMININ": 1389053007,
+            "VALEUR INCONNUE": 2515957
+         }
+      },
+      {
+         "year": 2016,
+         "boitesParSexe": {
+            "MASCULIN": 995603149,
+            "FEMININ": 1395786604,
+            "VALEUR INCONNUE": 466936
+         }
+      }
+   ]
+}
