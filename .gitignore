@@ -13,4 +13,7 @@ typings/
 .~lock*
 
 data/*
+!data/readme.md
+
 build/*
+!build/readme.md
