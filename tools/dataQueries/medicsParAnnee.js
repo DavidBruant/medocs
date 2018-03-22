@@ -27,7 +27,7 @@ export default function(openMedicByYear){
         .then(drugs => {
             return {
                 year: Number(year),
-                medicaments: [...drugs]
+                medicaments: drugs.size
             }
         })
     }))

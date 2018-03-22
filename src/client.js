@@ -42,7 +42,7 @@ d3.json('./build/data.json')
                 medicsParAnnee.map(mpa => {
                     return Bouture.tr([
                         Bouture.td(mpa.year),
-                        Bouture.td(mpa.medicaments.length)
+                        Bouture.td(mpa.medicaments)
                     ])
                 })
             )
