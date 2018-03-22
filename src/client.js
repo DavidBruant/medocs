@@ -1,8 +1,11 @@
 'use strict';
 
-d3.json('./build/data.json')
-.then(data => {
-    const {boitesParSexe, medicsParAnnee} = data;
+Promise.all([
+    d3.json('./build/data.json'),
+    d3.csv('./data/CIP13.csv')
+])
+.then(([data, cip13Names]) => {
+    const {boitesParSexe, medicsParAnnee, medicsSeulementFemmes} = data;
 
     const headers = new Set();
     
@@ -50,8 +53,34 @@ d3.json('./build/data.json')
     ]).getElement()
 
 
+    const prescriptionsFemmesSeulement = Bouture.section([
+        Bouture.h1('Prescriptions faites exclusivement aux femmes par année (OpenMedic)'),
+        ...medicsSeulementFemmes.map(mSF => {
+            return Bouture.section([
+                Bouture.h1(`Prescriptions faites exclusivement aux femmes en ${mSF.year}`),
+
+                Bouture.table([
+                    Bouture.thead.tr([
+                        Bouture.th('CIP13'), 
+                        Bouture.th('Nom médicament')
+                    ]),
+                    Bouture.tbody(
+                        mSF.onlyWomenDrugs.map(cip13 => {
+                            return Bouture.tr([
+                                Bouture.td(cip13),
+                                Bouture.td(cip13Names.find(({CIP13}) => cip13 === CIP13)['NOM COURT'])
+                            ])
+                        })
+                    )
+                ])
+            ])
+        })
+    ]).getElement()
+
+
     document.querySelector('body main').append(
         boiteParAnnee,
-        nbMedicamentsParAnnee
+        nbMedicamentsParAnnee,
+        prescriptionsFemmesSeulement
     )
 })
