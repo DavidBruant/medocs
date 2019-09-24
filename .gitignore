@@ -12,9 +12,10 @@ typings/
 *.zip
 .~lock*
 
-data/*
-!data/readme.md
-!data/CIP13.csv
+/data/*
+!/data/readme.md
+!/data/CIP13.csv
+!/data/medicaments.gouv.fr/
 
 build/*
 !build/readme.md
