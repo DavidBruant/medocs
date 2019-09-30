@@ -2,11 +2,15 @@
 
 ## Ventes de médicaments
 
-Ici, des données ouvertes sources. Elles sont téléchargées par [`npm run download`](../tools/download.js)
+### Open Medic
 
-Sources : 
-- https://www.data.gouv.fr/fr/datasets/open-medic-base-complete-sur-les-depenses-de-medicaments-interregimes/
-- https://www.data.gouv.fr/fr/datasets/open-phmev-bases-sur-les-prescriptions-hospitalieres-de-medicaments-delivrees-en-ville/
+Téléchargées le 30 septembre 2019 à partir de https://www.data.gouv.fr/fr/datasets/open-medic-base-complete-sur-les-depenses-de-medicaments-interregimes/#_
+Parce que y'a un Captcha qui empêche le téléchargement automatisé
+
+
+### OpenPhMev
+
+(pas encore. Source : https://www.data.gouv.fr/fr/datasets/open-phmev-bases-sur-les-prescriptions-hospitalieres-de-medicaments-delivrees-en-ville/ )
 
 
 ## Données structurées
