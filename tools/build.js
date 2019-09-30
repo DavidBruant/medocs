@@ -8,7 +8,7 @@ import medicsParAnnee from './dataQueries/medicsParAnnee';
 import medicsFemmesSeulement from './dataQueries/medicsFemmesSeulement';
 
 function makeDataPath(datafile){
-    return join(__dirname, '..', 'data', datafile);
+    return join(__dirname, '..', 'data', 'OpenMedic', datafile);
 }
 
 const openMedicByYear = Object.freeze({
