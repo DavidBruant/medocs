@@ -1,14 +1,14 @@
 {
   "name": "medocs",
   "version": "1.0.0",
-  "description": "```sh # extarcting the first 1000 rows gunzip -c data/OPEN_PHMEV_2016.zip | head -n 1000 > build/head_phmev_2016.csv gunzip -c data/OPEN_MEDIC_2016.zip | head -n 1000 > build/head_medic_2016.csv",
+  "description": "Des histoires de médicament",
   "main": "main.js",
   "scripts": {
     "build": "node -r esm tools/build.js",
     "start": "http-server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "@std/esm": {
+  "esm": {
     "esm": "js",
     "cjs": {
       "namedExports": true,
