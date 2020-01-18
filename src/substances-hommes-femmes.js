@@ -36,7 +36,7 @@ function SubstancesHF(bySubstances){
 }
 
 
-d3.json('./build/substances-hf.json').then(data => {
+d3.json('./build/data.json').then(data => {
     console.log('data', data)
-    render(html`<${SubstancesHF} ...${data}></>`, document.querySelector('main'))
+    render(html`<${SubstancesHF} ...${data['boitesHFBySubstance']}></>`, document.querySelector('main'))
 })

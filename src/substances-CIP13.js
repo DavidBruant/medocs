@@ -38,9 +38,14 @@ function OutputContent({subtanceToCISCIP13s}){
         </section>`
 }
 
+const CISCIP13RowsP = d3.text('./data/medicaments.gouv.fr/CIS_CIP_bdpm.txt')
+.then(d3.tsvParseRows)
 
+const compoRowsP = d3.text('./data/medicaments.gouv.fr/CIS_COMPO_bdpm.txt')
+.then(d3.tsvParseRows)
 
-makeSubtanceToCISCIP13s()
+Promise.all([CISCIP13RowsP, compoRowsP])
+.then(([CISCIP13Rows, compoRows]) => makeSubtanceToCISCIP13s(CISCIP13Rows, compoRows))
 .then(subtanceToCISCIP13s => {
     function inputToOutput(value){
         const substanceNames = new Set(value.split('\n').map(s => s.trim()))
