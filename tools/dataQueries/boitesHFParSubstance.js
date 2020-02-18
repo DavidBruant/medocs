@@ -22,9 +22,9 @@ function computeBoiteBySubstanceBySexe(file, CIP13ToSubstance){
                 if(!substance)
                     return
 
-                const sexe = SEXE_LABEL[data.sexe];
+                const sexe = SEXE_LABEL[data.sexe] || SEXE_LABEL[data.SEXE];
                 const boites = Number(data['BOITES']);
-                
+
                 if(!boitesHFBySubstance[substance]){
                     boitesHFBySubstance[substance] = {}
                 }
@@ -40,8 +40,8 @@ function computeBoiteBySubstanceBySexe(file, CIP13ToSubstance){
     })
 }
 
-export default function boitesHFParSubstance(openMedicByYear, CIP13ToSubstance){
-    return Promise.all([...Object.entries(openMedicByYear)].map( ([year, openMedicFile]) => {
+export default function boitesHFParSubstance(openMedicByYear, openPHMEVByYear, CIP13ToSubstance){
+    const openMedicByYearsP = Promise.all([...Object.entries(openMedicByYear)].map( ([year, openMedicFile]) => {
         return computeBoiteBySubstanceBySexe(openMedicFile, CIP13ToSubstance)
         .then(boitesHFBySubstance => {    
             return {
@@ -50,15 +50,38 @@ export default function boitesHFParSubstance(openMedicByYear, CIP13ToSubstance){
             }
         })
     }))
-    .then(byYears => {
+
+    const openPHMEVByYearsP = Promise.all([...Object.entries(openPHMEVByYear)].map( ([year, openPHMEVFile]) => {
+        return computeBoiteBySubstanceBySexe(openPHMEVFile, CIP13ToSubstance)
+        .then(boitesHFBySubstance => {    
+            return {
+                year: Number(year),
+                boitesHFBySubstance
+            }
+        })
+    }))
+
+    return Promise.all([openMedicByYearsP, openPHMEVByYearsP])
+    .then(([openMedicByYears, openPHMEVByYears]) => {
         const bySubstance = Object.create(null);
 
-        for(const {year, boitesHFBySubstance} of byYears){
+        for(const {year, boitesHFBySubstance} of openMedicByYears){
             for(const [substance, HF] of Object.entries(boitesHFBySubstance)){
                 const byYear = bySubstance[substance] || Object.create(null);
                 const bySource = byYear[year] || Object.create(null);
 
                 bySource['OpenMedic'] = HF;
+                byYear[year] = bySource
+                bySubstance[substance] = byYear;
+            }
+        }
+
+        for(const {year, boitesHFBySubstance} of openPHMEVByYears){
+            for(const [substance, HF] of Object.entries(boitesHFBySubstance)){
+                const byYear = bySubstance[substance] || Object.create(null);
+                const bySource = byYear[year] || Object.create(null);
+
+                bySource['OpenPHMEV'] = HF;
                 byYear[year] = bySource
                 bySubstance[substance] = byYear;
             }

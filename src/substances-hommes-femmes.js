@@ -8,10 +8,6 @@ function HF({homme = 0, femme = 0}){
     const hRatio = homme/(homme+femme)
     const fRatio = femme/(homme+femme)
 
-    if(Number.isNaN(hRatio) || Number.isNaN(fRatio)){
-        console.log('NaN', homme, femme, hRatio, fRatio)
-    }
-
     return html`<div class="hf">
         <div class="bars">
             <div class="h" style=${ {width: `${hRatio*100}%`} }></div>
@@ -27,13 +23,13 @@ function HF({homme = 0, femme = 0}){
 function SubstancesHF(bySubstances){
     return html`<section>
         ${ [...Object.entries(bySubstances)].map(([substance, byYear]) => {
-            return html`<section>
+            return html`<section class="substance">
                 <h2>${substance}</h2>
                 ${ [...Object.entries(byYear)].map(([year, byDataset]) => {
-                    return html`<section>
+                    return html`<section class="year">
                         <h3>${year}</h3>
                         ${ [...Object.entries(byDataset)].map(([dataset, hf]) => {
-                            return hf.femme > 0 || hf.homme > 0 ? html`<section>
+                            return hf.femme > 0 || hf.homme > 0 ? html`<section class="dataset">
                                 <h4>${dataset}</h4>
                                 <${HF} ...${hf}></>
                             </section>` : undefined
