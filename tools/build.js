@@ -28,11 +28,11 @@ const openMedicByYear = Object.freeze({
 });
 
 const openPHMEVByYear = Object.freeze({
-    "2014": makeOpenPHMEVDataPath('OPEN_PHMEV_2014.zip'),
-    "2015": makeOpenPHMEVDataPath('OPEN_PHMEV_2015.zip'),
-    "2016": makeOpenPHMEVDataPath('OPEN_PHMEV_2016.zip'),
-    "2017": makeOpenPHMEVDataPath('OPEN_PHMEV_2017.zip'),
-    "2018": makeOpenPHMEVDataPath('OPEN_PHMEV_2018.zip')
+    "2014": makeOpenPHMEVDataPath('REG_OPEN_PHMEV_2014.zip'),
+    "2015": makeOpenPHMEVDataPath('REG_OPEN_PHMEV_2015.zip'),
+    "2016": makeOpenPHMEVDataPath('REG_OPEN_PHMEV_2016.zip'),
+    "2017": makeOpenPHMEVDataPath('REG_OPEN_PHMEV_2017.zip'),
+    "2018": makeOpenPHMEVDataPath('REG_OPEN_PHMEV_2018.zip')
 })
 
 const CIP13ToSubstanceP = Promise.all([

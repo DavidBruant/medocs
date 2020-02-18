@@ -14,6 +14,8 @@ Téléchargées le 18/02/2020 à partir de https://www.data.gouv.fr/fr/datasets/
 
 Autre adresse utile : http://open-data-assurance-maladie.ameli.fr/medicaments/index.php#Open_PHMEV
 
+Les données agrégées régionalement ont été récupérées parce qu'elles sont plus légères
+
 
 ## Données structurées
 
