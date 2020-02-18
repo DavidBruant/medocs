@@ -16,17 +16,24 @@ import boitesHFParSubstance from './dataQueries/boitesHFParSubstance';
 
 const {readFile, writeFile} = promises;
 
-function makeDataPath(datafile){
-    return join(__dirname, '..', 'data', 'OpenMedic', datafile);
-}
+const makeOpenMedicDataPath = datafile => join(__dirname, '..', 'data', 'OpenMedic', datafile);
+const makeOpenPHMEVDataPath = datafile => join(__dirname, '..', 'data', 'OpenPHMEV', datafile);
 
 const openMedicByYear = Object.freeze({
-    "2014": makeDataPath(OPEN_MEDIC_2014),
-    "2015": makeDataPath(OPEN_MEDIC_2015),
-    "2016": makeDataPath(OPEN_MEDIC_2016),
-    "2017": makeDataPath(OPEN_MEDIC_2017),
-    "2018": makeDataPath(OPEN_MEDIC_2018)
+    "2014": makeOpenMedicDataPath(OPEN_MEDIC_2014),
+    "2015": makeOpenMedicDataPath(OPEN_MEDIC_2015),
+    "2016": makeOpenMedicDataPath(OPEN_MEDIC_2016),
+    "2017": makeOpenMedicDataPath(OPEN_MEDIC_2017),
+    "2018": makeOpenMedicDataPath(OPEN_MEDIC_2018)
 });
+
+const openPHMEVByYear = Object.freeze({
+    "2014": makeOpenPHMEVDataPath('OPEN_PHMEV_2014.zip'),
+    "2015": makeOpenPHMEVDataPath('OPEN_PHMEV_2015.zip'),
+    "2016": makeOpenPHMEVDataPath('OPEN_PHMEV_2016.zip'),
+    "2017": makeOpenPHMEVDataPath('OPEN_PHMEV_2017.zip'),
+    "2018": makeOpenPHMEVDataPath('OPEN_PHMEV_2018.zip')
+})
 
 const CIP13ToSubstanceP = Promise.all([
     readFile('./data/medicaments.gouv.fr/CIS_CIP_bdpm.txt', {encoding: 'utf-8'}).then(tsvParseRows),
@@ -65,7 +72,7 @@ Promise.all([
     boitesParSexe(openMedicByYear),
     medicsParAnnee(openMedicByYear),
     medicsFemmesSeulement(openMedicByYear),
-    studiedCIP13ToSubstanceP.then(CIP13ToSubstance => boitesHFParSubstance(openMedicByYear, CIP13ToSubstance))
+    studiedCIP13ToSubstanceP.then(CIP13ToSubstance => boitesHFParSubstance(openMedicByYear, openPHMEVByYear, CIP13ToSubstance))
 ])
 .then(([bPSs, mPAs, mFS, boitesHFBySubstance]) => {
     return writeFile(

@@ -8,9 +8,11 @@ Téléchargées le 30 septembre 2019 à partir de https://www.data.gouv.fr/fr/da
 Parce que y'a un Captcha qui empêche le téléchargement automatisé
 
 
-### OpenPhMev
+### Open PHMEV
 
-(pas encore. Source : https://www.data.gouv.fr/fr/datasets/open-phmev-bases-sur-les-prescriptions-hospitalieres-de-medicaments-delivrees-en-ville/ )
+Téléchargées le 18/02/2020 à partir de https://www.data.gouv.fr/fr/datasets/open-phmev-bases-sur-les-prescriptions-hospitalieres-de-medicaments-delivrees-en-ville/
+
+Autre adresse utile : http://open-data-assurance-maladie.ameli.fr/medicaments/index.php#Open_PHMEV
 
 
 ## Données structurées
