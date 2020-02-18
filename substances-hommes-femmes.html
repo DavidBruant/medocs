@@ -38,13 +38,19 @@
             }
 
             .hf{
-                width: 6em;
-                height: 1.2em;
-
                 display: inline-flex;
                 flex-direction: row;
             }
-            .hf .h, .hf .f{
+
+            .hf .bars{
+                display: inline-flex;
+                flex-direction: column;
+
+                width: 6em;
+                height: 2em;
+            }
+
+            .hf .bars .h, .hf .bars .f{
                 height: 100%;
             }
             .hf .h{

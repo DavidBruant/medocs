@@ -4,13 +4,23 @@ import htm from 'https://cdn.jsdelivr.net/npm/htm@2.2.1/dist/htm.module.js'
 const html = htm.bind(createElement);
 
 
-function HF({homme, femme}){
+function HF({homme = 0, femme = 0}){
     const hRatio = homme/(homme+femme)
     const fRatio = femme/(homme+femme)
 
+    if(Number.isNaN(hRatio) || Number.isNaN(fRatio)){
+        console.log('NaN', homme, femme, hRatio, fRatio)
+    }
+
     return html`<div class="hf">
-        <div class="h" style=${ {width: `${hRatio*100}%`} }></div>
-        <div class="f" style=${ {width: `${fRatio*100}%`} }></div>
+        <div class="bars">
+            <div class="h" style=${ {width: `${hRatio*100}%`} }></div>
+            <div class="f" style=${ {width: `${fRatio*100}%`} }></div>
+        </div>
+        <div class="numbers">
+            <span>${(hRatio*100).toFixed(0)}% /  ${(fRatio*100).toFixed(0)}% </span> 
+            <span>(${homme} /  ${femme})</span>
+        </div>
     </div>`
 }
 
@@ -23,10 +33,10 @@ function SubstancesHF(bySubstances){
                     return html`<section>
                         <h3>${year}</h3>
                         ${ [...Object.entries(byDataset)].map(([dataset, hf]) => {
-                            return html`<section>
+                            return hf.femme > 0 || hf.homme > 0 ? html`<section>
                                 <h4>${dataset}</h4>
-                                <${HF} ...${hf} ></>
-                            </section>`
+                                <${HF} ...${hf}></>
+                            </section>` : undefined
                         }) }
                     </section>`
                 }) }
