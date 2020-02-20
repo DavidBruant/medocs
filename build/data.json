@@ -2971,6 +2971,112 @@
         }
       }
     },
+    "isotretinoine": {
+      "2014": {
+        "OpenMedic": {
+          "homme": 15704,
+          "femme": 19650,
+          "sexe inconnu": 73
+        },
+        "OpenPHMEV": {
+          "homme": 406,
+          "femme": 298,
+          "sexe inconnu": 337
+        }
+      },
+      "2015": {
+        "OpenMedic": {
+          "homme": 18101,
+          "femme": 22181,
+          "sexe inconnu": 115
+        },
+        "OpenPHMEV": {
+          "homme": 517,
+          "femme": 461,
+          "sexe inconnu": 573
+        }
+      },
+      "2016": {
+        "OpenMedic": {
+          "homme": 5535,
+          "femme": 6550
+        },
+        "OpenPHMEV": {
+          "homme": 39,
+          "femme": 17,
+          "sexe inconnu": 288
+        }
+      },
+      "2017": {
+        "OpenMedic": {
+          "homme": 4031,
+          "femme": 5398
+        },
+        "OpenPHMEV": {
+          "homme": 20,
+          "femme": 22,
+          "sexe inconnu": 255
+        }
+      },
+      "2018": {
+        "OpenMedic": {
+          "homme": 8322,
+          "femme": 11948
+        },
+        "OpenPHMEV": {
+          "femme": 263,
+          "sexe inconnu": 472,
+          "homme": 206
+        }
+      }
+    },
+    "levothyroxine sodique": {
+      "2014": {
+        "OpenMedic": {
+          "homme": 9855,
+          "femme": 25220,
+          "sexe inconnu": 72
+        },
+        "OpenPHMEV": {
+          "homme": 60,
+          "femme": 464,
+          "sexe inconnu": 704
+        }
+      },
+      "2015": {
+        "OpenMedic": {
+          "homme": 7389,
+          "femme": 17760,
+          "sexe inconnu": 36
+        },
+        "OpenPHMEV": {
+          "femme": 103,
+          "sexe inconnu": 644
+        }
+      },
+      "2016": {
+        "OpenMedic": {
+          "homme": 5644,
+          "femme": 13736
+        },
+        "OpenPHMEV": {
+          "femme": 41,
+          "sexe inconnu": 418
+        }
+      },
+      "2017": {
+        "OpenMedic": {
+          "sexe inconnu": 21,
+          "homme": 1784,
+          "femme": 4696
+        }
+      },
+      "2018": {
+        "OpenMedic": {
+          "femme": 81
+        }
+      }
+    },
     "vandetanib": {
       "2014": {
         "OpenMedic": {
@@ -3374,6 +3480,65 @@
         "OpenPHMEV": {
           "sexe inconnu": 119,
           "homme": 11
+        }
+      }
+    },
+    "lamotrigine": {
+      "2014": {
+        "OpenMedic": {
+          "homme": 34623,
+          "femme": 50449,
+          "sexe inconnu": 30
+        },
+        "OpenPHMEV": {
+          "homme": 5161,
+          "femme": 8545,
+          "sexe inconnu": 2108
+        }
+      },
+      "2015": {
+        "OpenMedic": {
+          "homme": 48917,
+          "femme": 69242,
+          "sexe inconnu": 125
+        },
+        "OpenPHMEV": {
+          "homme": 7564,
+          "femme": 12295,
+          "sexe inconnu": 2362
+        }
+      },
+      "2016": {
+        "OpenMedic": {
+          "homme": 18075,
+          "femme": 26460
+        },
+        "OpenPHMEV": {
+          "homme": 2709,
+          "femme": 4934,
+          "sexe inconnu": 1520
+        }
+      },
+      "2017": {
+        "OpenMedic": {
+          "homme": 49155,
+          "femme": 74846
+        },
+        "OpenPHMEV": {
+          "homme": 8335,
+          "femme": 15725,
+          "sexe inconnu": 1938
+        }
+      },
+      "2018": {
+        "OpenMedic": {
+          "homme": 61246,
+          "femme": 97680
+        },
+        "OpenPHMEV": {
+          "sexe inconnu": 2067,
+          "femme": 20550,
+          "homme": 10408
         }
       }
     },
@@ -3919,6 +4084,28 @@
           "homme": 270,
           "femme": 479,
           "sexe inconnu": 197
+        }
+      }
+    },
+    "acetate de cyproterone": {
+      "2017": {
+        "OpenMedic": {
+          "femme": 3293,
+          "homme": 547
+        },
+        "OpenPHMEV": {
+          "femme": 142,
+          "sexe inconnu": 125
+        }
+      },
+      "2018": {
+        "OpenMedic": {
+          "femme": 2560,
+          "homme": 487
+        },
+        "OpenPHMEV": {
+          "femme": 106,
+          "sexe inconnu": 78
         }
       }
     },
