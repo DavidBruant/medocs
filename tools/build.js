@@ -69,19 +69,19 @@ const studiedCIP13ToSubstanceP = Promise.all([
 })
 
 Promise.all([
-    boitesParSexe(openMedicByYear),
-    medicsParAnnee(openMedicByYear),
-    medicsFemmesSeulement(openMedicByYear),
+    //boitesParSexe(openMedicByYear),
+    //medicsParAnnee(openMedicByYear),
+    //medicsFemmesSeulement(openMedicByYear),
     studiedCIP13ToSubstanceP.then(CIP13ToSubstance => boitesHFParSubstance(openMedicByYear, openPHMEVByYear, CIP13ToSubstance))
 ])
-.then(([bPSs, mPAs, mFS, boitesHFBySubstance]) => {
+.then(([/*bPSs, mPAs, mFS,*/ boitesHFBySubstance]) => {
     return writeFile(
         join(__dirname, '..', 'build', 'data.json'), 
         JSON.stringify(
             {
-                boitesParSexe: bPSs,
-                medicsParAnnee: mPAs,
-                medicsSeulementFemmes: mFS,
+                //boitesParSexe: bPSs,
+                //medicsParAnnee: mPAs,
+                //medicsSeulementFemmes: mFS,
                 boitesHFBySubstance
             },
             null, 

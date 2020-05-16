@@ -1,10 +1,6 @@
 import makeCSVStreamFromArchive from './makeCSVStreamFromArchive'
 
-const SEXE_LABEL = {
-    "1": "homme",
-    "2": "femme",
-    "9": "sexe inconnu"
-}
+import {SEXE_LABEL} from '../../src/SEXE_LABEL.js'
 
 function computeBoiteBySubstanceBySexe(file, CIP13ToSubstance){
     console.log('computeBoiteBySubstanceBySexe', file)
