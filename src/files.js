@@ -1,3 +1,4 @@
+export const OPEN_MEDIC_2019 = 'OPEN_MEDIC_2019.zip'
 export const OPEN_MEDIC_2018 = 'OPEN_MEDIC_2018.zip'
 export const OPEN_MEDIC_2017 = 'OPEN_MEDIC_2017.zip'
 export const OPEN_MEDIC_2016 = 'OPEN_MEDIC_2016.zip'
