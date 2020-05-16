@@ -4,7 +4,7 @@ import {join} from 'path'
 
 import {tsvParseRows} from 'd3-dsv'
 
-import {OPEN_MEDIC_2018, OPEN_MEDIC_2017, OPEN_MEDIC_2016, OPEN_MEDIC_2015, OPEN_MEDIC_2014} from '../src/files.js';
+import {OPEN_MEDIC_2019, OPEN_MEDIC_2018, OPEN_MEDIC_2017, OPEN_MEDIC_2016, OPEN_MEDIC_2015, OPEN_MEDIC_2014} from '../src/files.js';
 
 import makeSubtanceToCISCIP13s from '../src/makeSubtanceToCISCIP13s.js';
 import normalizeSubstanceName from '../src/normalizeSubstanceName.js';
@@ -24,7 +24,8 @@ const openMedicByYear = Object.freeze({
     "2015": makeOpenMedicDataPath(OPEN_MEDIC_2015),
     "2016": makeOpenMedicDataPath(OPEN_MEDIC_2016),
     "2017": makeOpenMedicDataPath(OPEN_MEDIC_2017),
-    "2018": makeOpenMedicDataPath(OPEN_MEDIC_2018)
+    "2018": makeOpenMedicDataPath(OPEN_MEDIC_2018),
+    "2019": makeOpenMedicDataPath(OPEN_MEDIC_2019)
 });
 
 const openPHMEVByYear = Object.freeze({
