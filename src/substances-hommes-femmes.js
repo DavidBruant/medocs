@@ -38,28 +38,33 @@ function HF({homme = 0, femme = 0}){
 function SubstancesHF(bySubstances){
     return html`<section>
         ${ [...Object.entries(bySubstances)].map(([substance, byYear]) => {
-            return html`<section class="substance">
-                <h2>${substance}</h2>
-                ${ [...Object.entries(byYear)].map(([year, byDataset]) => {
-                    const yearHF = mergeHFs(...Object.values(byDataset))
+            const bySubstancesHFs = [...Object.values(byYear)].map(byDataset => Object.values(byDataset)).flat()
+            const substanceHF = mergeHFs(...bySubstancesHFs)
 
-                    return html`<section class="year">
-                        <details>
-                            <summary>
-                                <h3>
-                                    <span>${year}</span>
-                                    <${HF} ...${yearHF}></>
-                                </h3>
-                            </summary>
-                            ${ [...Object.entries(byDataset)].map(([dataset, hf]) => {
-                                return hf.femme > 0 || hf.homme > 0 ? html`<section class="dataset">
-                                    <h4>${dataset}</h4>
-                                    <${HF} ...${hf}></>
-                                </section>` : undefined
-                            }) }
-                        </details>
-                    </section>`
+            return html`<section class="substance">
+                <details>
+                    <summary>
+                        <h2>
+                            <span>${substance}</span>
+                            <${HF} ...${substanceHF}></>
+                        </h2>
+                    </summary>
+                    ${ [...Object.entries(byYear)].map(([year, byDataset]) => {
+                        //const yearHF = mergeHFs(...Object.values(byDataset))
+
+                        return html`<section class="year">
+                            <h3>
+                                <span>${year}</span>
+                            </h3>
+                                ${ [...Object.entries(byDataset)].map(([dataset, hf]) => {
+                                    return hf.femme > 0 || hf.homme > 0 ? html`<section class="dataset">
+                                        <h4>${dataset}</h4>
+                                        <${HF} ...${hf}></>
+                                    </section>` : undefined
+                                }) }
+                            </section>`
                 }) }
+                </details>
             </section>`
         }) }
     </section>`
