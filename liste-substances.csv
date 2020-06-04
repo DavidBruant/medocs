@@ -1,126 +1,108 @@
-Défibrotide
-Mifamurtide
-Nintédanib
-Panobinostat
-Trabectédine
-Vandétanib
-Vinflunine
-
-Aliskirène
-Bézafibrate
-Ciprofibrate
-Dronédarone
-Fénofibrate
-Ivabradine
-Nicorandil
-olmésartan 
-Ranolazine
-Trimétazidine
-Vernakalant
-
-Méquitazine
-Prométhazine injectable
-Tacrolimus dermique
-
-Alogliptine
-Bupropione + naltrexone
-Linagliptine 
-Orlistat
-Pioglitazone
-Saxagliptine 
-Sitagliptine 
-Vildagliptine 
-
-Acéclofénac
-Capsaïcine  
-Célécoxib
-Colchicine + poudre d'opium + tiémonium 
-Dénosumab dosé à 60 mg 
-Diacéréine
-Diclofénac
-Étoricoxib
-Glucosamine
-Kétoprofène
-Méphénésine 
-Méthocarbamol
-Parécoxib
-Piroxicam par voie générale 
-Prednisolone + salicylate de dipropylène glycol 
-Quinine
-Ténoxicam
-Thiocolchicoside
-
-Acide obéticholique
-Attapulgite 
-Cimétidine
-Diosmectite
-Dompéridone
-Dropéridol
-Hydrotalcite
-Kaolin
-Métopimazine
-Monmectite 
-Nifuroxazide
-Prucalopride
-Trinitrate de glycéryle pommade à 0.4 %
-
-Estrogènes conjugués équins + bazédoxifène 
-Tibolone
-Ulipristal à 5 mg
-
-Moxifloxacine
-
-Alemtuzumab
-Donépézil
-Flunarizine
-Galantamine
-Ginkgo biloba
-Mémantine
-Naftidrofuryl
-Natalizumab
-Oxétorone
-Rivastigmine
-Tériflunomide
-Tolcapone
-
-Ciclosporine en collyre 
-Idébénone
-
-Alpha-amylase
-Ambroxol
-Bromhexine
-Éphédrine
-Mannitol inhalé 
-Naphazoline
-Nintédanib
-Oxomémazine
-Oxymétazoline
-Pentoxyvérine 
-Phényléphrine
-Pholcodine
-Pseudoéphédrine 
-Roflumilast
-Tixocortol en pulvérisation buccale 
-Tuaminoheptane 
-Xylométazoline
-
-Agomélatine 
-Citalopram
-Dapoxétine
-Duloxétine
-Escitalopram
-citalopram
-Étifoxine
-Milnacipran
-Tianeptine
-venlafaxine
-
-Bupropione
-
-Pentosane polysulfate oral
-
-acetate de cyproterone
-ISOTRETINOINE
-levothyroxine sodique
-Lamotrigine
-misoprostol
+Catégorie,Substance,Notes
+cancérologie - Hématologie,Défibrotide,
+cancérologie - Hématologie,Mifamurtide,
+cancérologie - Hématologie,Nintédanib,
+cancérologie - Hématologie,Panobinostat,
+cancérologie - Hématologie,Trabectédine,
+cancérologie - Hématologie,Vandétanib,
+cancérologie - Hématologie,Vinflunine,
+Cardiologie,Aliskirène,
+Cardiologie,Bézafibrate,
+Cardiologie,Ciprofibrate,
+Cardiologie,Dronédarone,
+Cardiologie,Fénofibrate,
+Cardiologie,Ivabradine,
+Cardiologie,Nicorandil,
+Cardiologie,olmésartan ,"(Alteis°, Olmetec°, et en association à doses fixes avec l'hydrochlorothiazide dans Alteisduo°, Coolmetec° ou avec l'amlodipine dans Axeler°, Sevikar°)"
+Cardiologie,Ranolazine,
+Cardiologie,Trimétazidine,
+Cardiologie,Vernakalant,
+Dermatologie- alergologie,Méquitazine,
+Dermatologie- alergologie,Prométhazine injectable,
+Dermatologie- alergologie,Tacrolimus dermique,
+Diabétologie-nutrition,Alogliptine,
+Diabétologie-nutrition,Bupropione + naltrexone, (Mysimba°) pas répertorié sur la base de données des médocs
+Diabétologie-nutrition,Linagliptine ,"(Trajenta°, et associée avec la metformine dans Jentadueto°) pas répertorié sur la base de données des médicaments"
+Diabétologie-nutrition,Orlistat,
+Diabétologie-nutrition,Pioglitazone,
+Diabétologie-nutrition,Saxagliptine ,"(Onglyza°, et associée avec la metformine dans Komboglyze°)"
+Diabétologie-nutrition,Sitagliptine ,"(Januvia°, Xelevia°, et associée avec la metformine dans Janumet°, Velmetia°)"
+Diabétologie-nutrition,Vildagliptine ,"(Galvus°, et associée avec la metformine dans Eucreas°)"
+Douleur Rhumatologie,Acéclofénac,
+Douleur Rhumatologie,Capsaïcine  ,(Qutenza°)
+Douleur Rhumatologie,Célécoxib,
+Douleur Rhumatologie,Colchicine + poudre d'opium + tiémonium ,(Colchimax°) ATTENTION il faut partir uniquement de ce nom de médoc et non de la DCI
+Douleur Rhumatologie,Dénosumab dosé à 60 mg ,(Prolia°)ATTENTION il faut partir uniquement de ce nom de médoc et non de la DCI
+Douleur Rhumatologie,Diacéréine,
+Douleur Rhumatologie,Diclofénac,
+Douleur Rhumatologie,Étoricoxib,
+Douleur Rhumatologie,Glucosamine,
+Douleur Rhumatologie,Kétoprofène,(Ketum° gel ou autre)
+Douleur Rhumatologie,Méphénésine ,par voie orale (Décontractyl°) et pommade à base de méphénésine (Décontractyl baume°)
+Douleur Rhumatologie,Méthocarbamol,
+Douleur Rhumatologie,Parécoxib,
+Douleur Rhumatologie,Piroxicam par voie générale ,(Feldène° ou autre)
+Douleur Rhumatologie,Prednisolone + salicylate de dipropylène glycol ,"(Cortisal°) ATTENTION, il faut partir uniquement de ce nom de médoc et non de la DCI"
+Douleur Rhumatologie,Quinine,
+Douleur Rhumatologie,Ténoxicam,
+Douleur Rhumatologie,Thiocolchicoside,
+Gastro-entérologie,Acide obéticholique,
+Gastro-entérologie,Attapulgite ,"(Actapulgite°, ou en association dans Gastropulgite°)"
+Gastro-entérologie,Cimétidine,
+Gastro-entérologie,Diosmectite,
+Gastro-entérologie,Dompéridone,
+Gastro-entérologie,Dropéridol,
+Gastro-entérologie,Hydrotalcite,
+Gastro-entérologie,Kaolin ,(en association dans Gastropax° et Neutroses°) ATTENTION partir de la DCI + du nom de médocs neutroses
+Gastro-entérologie,Métopimazine,
+Gastro-entérologie,Monmectite ,"(Bedelix°, et en association dans Gelox°)"
+Gastro-entérologie,Nifuroxazide,
+Gastro-entérologie,Prucalopride,
+Gastro-entérologie,"Trinitrate de glycéryle pommade à 0,4 % ",(Rectogésic°) ATTENTION partir du nom de médoc et pas de la DCI
+Gynécologie-Endocrinologie,Estrogènes conjugués équins + bazédoxifène ,(Duavive°) Attention partir du nom de médoc et non de la DCI
+Gynécologie-Endocrinologie,Tibolone,
+Gynécologie-Endocrinologie,Ulipristal à 5 mg,Esmya 5 mg Attention partir du médoc et non de la DCI
+Infectiologie,Moxifloxacine,
+Neurologie,Alemtuzumab,
+Neurologie,Donépézil,
+Neurologie,Flunarizine,
+Neurologie,Galantamine,
+Neurologie,Ginkgo biloba,
+Neurologie,Mémantine,
+Neurologie,Naftidrofuryl,
+Neurologie,Natalizumab,
+Neurologie,Oxétorone,
+Neurologie,Rivastigmine,
+Neurologie,Tériflunomide,
+Neurologie,Tolcapone,
+Ophtalmologie,Ciclosporine en collyre ,(Ikervis°) ATTENTION partir du nom du médoc et non de la DCI
+Ophtalmologie,Idébénone,
+Pneumologie-ORL,Alpha-amylase,
+Pneumologie-ORL,Ambroxol,
+Pneumologie-ORL,Bromhexine,
+Pneumologie-ORL,Éphédrine,
+Pneumologie-ORL,Mannitol inhalé ,(Bronchitol°) JE NE TROUVE PAS DE BRONCHITOL. C'est nul.
+Pneumologie-ORL,Naphazoline,
+Pneumologie-ORL,Nintédanib,
+Pneumologie-ORL,Oxomémazine,
+Pneumologie-ORL,Oxymétazoline," (Aturgyl°, Déturgylone°, Pernazène°)"
+Pneumologie-ORL,Pentoxyvérine ,"(Vicks sirop pectoral 0,15 %°, Clarix toux sèche pentoxyvérine 0,15 %°)"
+Pneumologie-ORL,Phényléphrine,
+Pneumologie-ORL,Pholcodine,
+Pneumologie-ORL,Pseudoéphédrine ,"(Rhinureflex°, Rhumagrip°, et au sein de gammes ombrelles Actifed°, Dolirhume°, Humex°, Nurofen°, Rhinadvil°)"
+Pneumologie-ORL,Roflumilast,
+Pneumologie-ORL,Tixocortol en pulvérisation buccale ,(Rhinadvil Maux de gorge et Thiovalone) Attention partir de ces 2 médocs et pas de la CDI
+Pneumologie-ORL,Tuaminoheptane ,(Rhinofluimucil°)
+Pneumologie-ORL,Xylométazoline,
+Psychiatrie-dépendance,Agomélatine ,
+Psychiatrie-dépendance,Citalopram,
+Psychiatrie-dépendance,Dapoxétine,
+Psychiatrie-dépendance,Duloxétine,
+Psychiatrie-dépendance,Escitalopram,
+Psychiatrie-dépendance,citalopram,
+Psychiatrie-dépendance,Étifoxine,
+Psychiatrie-dépendance,Milnacipran,
+Psychiatrie-dépendance,Tianeptine,
+Psychiatrie-dépendance,venlafaxine,
+Sevrage tabagique,Bupropione,
+Urologie,Pentosane polysulfate oral, (Elmiron°)Attention partir du nom du médoc et pas de la DCI
