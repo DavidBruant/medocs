@@ -2,17 +2,17 @@ import {promises} from 'fs'
 
 import {join} from 'path'
 
-import {tsvParseRows} from 'd3-dsv'
+import {tsvParseRows, csvParse} from 'd3-dsv'
 
 import {OPEN_MEDIC_2019, OPEN_MEDIC_2018, OPEN_MEDIC_2017, OPEN_MEDIC_2016, OPEN_MEDIC_2015, OPEN_MEDIC_2014} from '../src/files.js';
 
 import makeSubtanceToCISCIP13s from '../src/makeSubtanceToCISCIP13s.js';
 import normalizeSubstanceName from '../src/normalizeSubstanceName.js';
 
-import boitesParSexe from './dataQueries/boitesParSexe';
-import medicsParAnnee from './dataQueries/medicsParAnnee';
-import medicsFemmesSeulement from './dataQueries/medicsFemmesSeulement';
-import boitesHFParSubstance from './dataQueries/boitesHFParSubstance';
+//import boitesParSexe from './dataQueries/boitesParSexe';
+//import medicsParAnnee from './dataQueries/medicsParAnnee';
+//import medicsFemmesSeulement from './dataQueries/medicsFemmesSeulement';
+import boitesHFParCatégorie from './dataQueries/boitesHFParCatégorie.js';
 
 const {readFile, writeFile} = promises;
 
@@ -46,16 +46,30 @@ const CIP13ToSubstanceP = Promise.all([
     
     for(const [substance, {CIP13s}] of subtanceToCISCIP13s){
         for(const CIP13 of CIP13s){
-            CIP13ToSubstance.set(CIP13, substance)
+            CIP13ToSubstance.set(CIP13, normalizeSubstanceName(substance))
         }
     }
 
     return CIP13ToSubstance
 })
 
+const studiedSubstanceByCatégorieP = readFile('./liste-substances.csv', {encoding: 'utf-8'})
+.then(csvParse)
+.then(scs => {
+    const substancesByCatégorie = new Map();
+
+    for(const {Substance, Catégorie} of scs){
+        const subs = substancesByCatégorie.get(Catégorie) || []
+        subs.push(normalizeSubstanceName(Substance))
+        substancesByCatégorie.set(Catégorie, subs)
+    }
+
+    return substancesByCatégorie;
+})
+
+
 const studiedCIP13ToSubstanceP = Promise.all([
-    readFile('./liste-substances.csv', {encoding: 'utf-8'})
-    .then(str => new Set(str.split('\n').map(s => normalizeSubstanceName(s.trim())))),
+    studiedSubstanceByCatégorieP.then(studiedSubstanceByCatégorie => new Set([...studiedSubstanceByCatégorie.values()].flat())),
     CIP13ToSubstanceP
 ])
 .then(([studiedSubstances, CIP13ToSubstance]) => {
@@ -73,9 +87,12 @@ Promise.all([
     //boitesParSexe(openMedicByYear),
     //medicsParAnnee(openMedicByYear),
     //medicsFemmesSeulement(openMedicByYear),
-    studiedCIP13ToSubstanceP.then(CIP13ToSubstance => boitesHFParSubstance(openMedicByYear, openPHMEVByYear, CIP13ToSubstance))
+    Promise.all([studiedCIP13ToSubstanceP, studiedSubstanceByCatégorieP])
+        .then(([CIP13ToSubstance, studiedSubstanceByCatégorie]) => 
+            boitesHFParCatégorie(openMedicByYear, openPHMEVByYear, CIP13ToSubstance, studiedSubstanceByCatégorie)
+        )
 ])
-.then(([/*bPSs, mPAs, mFS,*/ boitesHFBySubstance]) => {
+.then(([/*bPSs, mPAs, mFS,*/ boitesHFByCatégorie]) => {
     return writeFile(
         join(__dirname, '..', 'build', 'data.json'), 
         JSON.stringify(
@@ -83,7 +100,7 @@ Promise.all([
                 //boitesParSexe: bPSs,
                 //medicsParAnnee: mPAs,
                 //medicsSeulementFemmes: mFS,
-                boitesHFBySubstance
+                boitesHFByCatégorie
             },
             null, 
             2
