@@ -23,9 +23,18 @@
             main{
                 max-width: 50em;
                 display: flex;
-                flex-direction: row;
+                flex-direction: column;
                 justify-content: flex-start;
                 width: 80%;
+            }
+
+            h1{
+                text-decoration: none;
+            }
+
+            body > h1{
+                font-size: 1.6em;
+                text-decoration: underline;
             }
 
             section{
@@ -35,12 +44,11 @@
             section.substance{
                 margin-left: 1em;
             }
-            h2{
-                text-decoration: underline;
+            section.substance h1{
                 display: inline-block;
             }
 
-            section.substance h2 > span{
+            section.substance h1 > span{
                 margin-right: 1em;
                 display: block;
             }
@@ -53,14 +61,14 @@
                 display: inline-block;
             }
 
-            section.year h3 > span{
+            section.year h1 > span{
                 margin-right: 1em;
             }
 
             section.dataset{
                 margin-left: 1em;
             }
-            h4{
+            section.dataset h1{
                 min-width: 6.5em;
                 
                 display: inline-block;

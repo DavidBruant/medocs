@@ -36,10 +36,10 @@ function computeBoiteBySubstanceBySexe(file, CIP13ToSubstance){
     })
 }
 
-export default function boitesHFParSubstance(openMedicByYear, openPHMEVByYear, CIP13ToSubstance){
+export default function boitesHFParSubstance(openMedicByYear, openPHMEVByYear, CIP13ToSubstance, studiedSubstanceByCatégorie){
     const openMedicByYearsP = Promise.all([...Object.entries(openMedicByYear)].map( ([year, openMedicFile]) => {
         return computeBoiteBySubstanceBySexe(openMedicFile, CIP13ToSubstance)
-        .then(boitesHFBySubstance => {    
+        .then(boitesHFBySubstance => {
             return {
                 year: Number(year),
                 boitesHFBySubstance
@@ -83,7 +83,18 @@ export default function boitesHFParSubstance(openMedicByYear, openPHMEVByYear, C
             }
         }
 
-        return bySubstance
+
+        const byCatégorie = Object.create(null);
+
+        for(const [catégorie, substances] of studiedSubstanceByCatégorie){
+            for(const substance of substances){
+                const catégorieData = byCatégorie[catégorie] || Object.create(null);
+                catégorieData[substance] = bySubstance[substance];
+                byCatégorie[catégorie] = catégorieData;
+            }
+        }
+
+        return byCatégorie
     })
 }
 
