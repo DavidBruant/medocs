@@ -1,6 +1,6 @@
 {
   "boitesHFByCatégorie": {
-    "cancérologie - Hématologie": {
+    "Cancérologie - Hématologie": {
       "vandetanib": {
         "2014": {
           "OpenMedic": {
@@ -349,7 +349,7 @@
         }
       }
     },
-    "Dermatologie- alergologie": {
+    "Dermatologie- allergologie": {
       "mequitazine": {
         "2014": {
           "OpenMedic": {
@@ -417,6 +417,7 @@
         }
       }
     },
+    "Diabétologie-Nutrition": {},
     "Diabétologie-nutrition": {
       "vildagliptine": {
         "2014": {
@@ -1673,7 +1674,7 @@
         }
       }
     },
-    "Psychiatrie-dépendance": {
+    "Psychiatrie-Dépendance": {
       "agomelatine": {
         "2019": {
           "OpenMedic": {
@@ -1810,7 +1811,9 @@
             "femme": 8400
           }
         }
-      },
+      }
+    },
+    "Psychiatrie-dépendance": {
       "venlafaxine": {
         "2014": {
           "OpenMedic": {
