@@ -48,7 +48,7 @@ function SubstancesHF({boitesHFByCatégorie, normalizedToDisplaySubstanceName}){
                     const bySubstancesHFs = [...Object.values(byYear)].map(byDataset => Object.values(byDataset)).flat()
                     const substanceHF = mergeHFs(...bySubstancesHFs)
 
-                    return html`<section class="substance">
+                    return substanceHF.femme > 0 || substanceHF.homme > 0 ? html`<section class="substance">
                         <details>
                             <summary>
                                 <h1>
@@ -70,7 +70,7 @@ function SubstancesHF({boitesHFByCatégorie, normalizedToDisplaySubstanceName}){
                                     </section>`
                             })}
                         </details>
-                    </section>`
+                    </section>` : undefined
                     })
                 }
             </section>`
