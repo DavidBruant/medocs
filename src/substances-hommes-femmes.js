@@ -1,6 +1,8 @@
 import {render, createElement} from 'https://cdn.jsdelivr.net/npm/preact@10.2.1/dist/preact.module.js'
 import htm from 'https://cdn.jsdelivr.net/npm/htm@2.2.1/dist/htm.module.js'
 
+import normalizeSubstanceName from './normalizeSubstanceName.js'
+
 import {SEXE_LABEL} from './SEXE_LABEL.js'
 
 const html = htm.bind(createElement);
@@ -35,28 +37,26 @@ function HF({homme = 0, femme = 0}){
     </div>`
 }
 
-function SubstancesHF(byCatégorie){
+function SubstancesHF({boitesHFByCatégorie, normalizedToDisplaySubstanceName}){
     return html`
-        ${ [...Object.entries(byCatégorie)].map(([catégorie, bySubstance]) => {
+        ${ [...Object.entries(boitesHFByCatégorie)].map(([catégorie, bySubstance]) => {
 
             return html`<section class="catégorie">
                 <h1>${catégorie}</h1>
                 ${
-                    [...Object.entries(bySubstance)].map(([substance, byYear]) => {
+                    [...Object.entries(bySubstance)].map(([normalizedSubstance, byYear]) => {
                     const bySubstancesHFs = [...Object.values(byYear)].map(byDataset => Object.values(byDataset)).flat()
                     const substanceHF = mergeHFs(...bySubstancesHFs)
 
-                    return html`<section class="substance">
+                    return substanceHF.femme > 0 || substanceHF.homme > 0 ? html`<section class="substance">
                         <details>
                             <summary>
                                 <h1>
-                                    <span>${substance}</span>
+                                    <span>${normalizedToDisplaySubstanceName.get(normalizedSubstance)}</span>
                                     <${HF} ...${substanceHF}></>
                                 </h1>
                             </summary>
                             ${ [...Object.entries(byYear)].map(([year, byDataset]) => {
-                                //const yearHF = mergeHFs(...Object.values(byDataset))
-
                                 return html`<section class="year">
                                     <h1>
                                         <span>${year}</span>
@@ -70,7 +70,7 @@ function SubstancesHF(byCatégorie){
                                     </section>`
                             })}
                         </details>
-                    </section>`
+                    </section>` : undefined
                     })
                 }
             </section>`
@@ -78,8 +78,19 @@ function SubstancesHF(byCatégorie){
     }`
 }
 
-
-d3.json('./build/data.json').then(data => {
+Promise.all([
+    d3.json('./build/data.json'),
+    d3.csv('./liste-substances.csv')
+])
+.then(([data, listeSubstances]) => {
     console.log('data', data)
-    render(html`<${SubstancesHF} ...${data['boitesHFByCatégorie']}></>`, document.querySelector('main'))
+
+    const normalizedToDisplaySubstanceName = new Map();
+    for(const {Substance} of listeSubstances){
+        normalizedToDisplaySubstanceName.set(normalizeSubstanceName(Substance), Substance)
+    }
+
+    console.log('normalizedToDisplaySubstanceName', normalizedToDisplaySubstanceName)
+
+    render(html`<${SubstancesHF} normalizedToDisplaySubstanceName=${normalizedToDisplaySubstanceName} boitesHFByCatégorie=${data['boitesHFByCatégorie']}></>`, document.querySelector('main'))
 })
