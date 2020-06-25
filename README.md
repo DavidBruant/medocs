@@ -1,4 +1,4 @@
-# medocs [![Build Status](https://travis-ci.org/DavidBruant/medocs.svg?branch=master)](https://travis-ci.org/DavidBruant/medocs)
+# medocs [![Build Status](https://api.travis-ci.org/YoupressFr/Mauvais-Traitements.svg?branch=master)](https://travis-ci.org/DavidBruant/medocs)
 
 ```sh
 # Downloading the files
